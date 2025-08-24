@@ -89,11 +89,11 @@
 
     handle.addEventListener('mouseleave', () => {
         handle.style.background = '#777777';
-        if (!dragging) setTimeout(() => { handle.style.opacity = '0'; }, 500);
+        handle.style.opacity = '0';
     });
     container.appendChild(handle);
     // Show for 1s, then fade out over 1s
-    setTimeout(() => { handle.style.opacity = '0'; }, 1000);
+    setTimeout(() => { handle.style.opacity = '0'; }, 500);
 
 
     // Floating readout showing column widths during drag
@@ -177,6 +177,7 @@
 
     function onMove(e) {
         if (!dragging) return;
+        handle.style.opacity = '1';
         const cRect = container.getBoundingClientRect();
         const sizes = setColumnsFromX(e.clientX - cRect.left - dragOffset);
         updateReadout(e.clientX, e.clientY, sizes);
@@ -187,7 +188,7 @@
         dragging = false;
         document.body.style.cursor = '';
         readout.style.display = 'none';
-        setTimeout(() => { handle.style.opacity = '0'; }, 500);
+        handle.style.opacity = '0'; 
     }
 
     handle.addEventListener('mousedown', onDown);
