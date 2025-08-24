@@ -129,17 +129,21 @@
 
     // Initialize handle near the existing column boundary if possible
     (function tryAlignToCurrentColumns() {
-        const parts = startCols.split(/\s+/);
+        const parts = splitTracks(startCols);
         const rect = container.getBoundingClientRect();
         const total = rect.width;
         let leftGuess = total / 2;
 
         function parseLen(val, fallback) {
             if (val.endsWith('px')) return parseFloat(val);
-            if (val.endsWith('fr')) return total * (parseFloat(val) / parts
-                .filter(v => v.endsWith('fr'))
-                .map(v => parseFloat(v))
-                .reduce((a, b) => a + b, 0));
+            if (val.endsWith('fr')) {
+                const totalFr = parts
+                    .filter(v => v.endsWith('fr'))
+                    .map(v => parseFloat(v))
+                    .reduce((a, b) => a + b, 0);
+                if (totalFr === 0) return fallback;
+                return total * (parseFloat(val) / totalFr);
+            }
             if (val.endsWith('%')) return total * (parseFloat(val) / 100);
             return fallback;
         }
