@@ -47,7 +47,7 @@ Please add issue with description before PR.
 
 ## Features
 
-* **View splitter** to resize the view and code columns. Double -lick the splitter to restore the default, or right-click to remove it.
+* **View splitter** to resize the view and code columns. Double-click the splitter to restore the default, or right-click to remove it.
 
 * **Custom parameters** -
     [See documentation](./docs/custom-params.md)
